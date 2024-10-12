@@ -15,22 +15,10 @@ class Student
       end
       
       def full_name
-        "#{@surname} #{@name} #{@lastname}"
-      end
-      
-      def  set_id(id)
-        @id = id
+        "#{@surname} #{@name[0]}#{'.'}#{@lastname[0]}"
       end
 
-      def surname=(surname)
-        @surname = surname
-      end
-    
-      def name=(name)
-        @name = name
-      end
-    
-      def lastname=(lastname)
-        @lastname = lastname
+      def to_s
+        "id: #{@id}, fullname: #{full_name}, phone: #{@phone || 'empty'}, tg: #{@telegram || 'empty'}, email: #{@email || 'empty'}, git: #{@github || 'empty'}"
       end
 end
