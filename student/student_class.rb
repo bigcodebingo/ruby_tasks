@@ -50,11 +50,31 @@ class Student
     self.email = extras[:email]
   end
 
+  def get_github()
+    @github || 'git отсутствует'
+  end
+
+  def contact_info()
+    contacts = []
+    contacts << "телефон: #{@phone}" if @phone
+    contacts << "telegram: #{@telegram}" if @telegram
+    contacts << "email: #{@email}" if @email
+    contacts.empty? ? "контакты отсутствуют" : contacts.join(', ')
+  end
+
+  def full_name()
+    "#{@surname} #{@name[0]}#{'.'}#{@lastname[0]}"
+  end
+
+  def getInfo()
+    "#{full_name}, github: #{get_github}, связь: #{contact_info}"
+  end
+
   private def github=(github)
     if github.nil? || Student.valid_github?(github)
       @github = github
     else
-      raise ArgumentError, "неверный формат GitHub: #{github}"
+      raise ArgumentError, "неверный формат github: #{github}"
     end
   end
 
@@ -70,7 +90,7 @@ class Student
     if telegram.nil? || Student.valid_telegram?(telegram)
       @telegram = telegram
     else
-      raise ArgumentError, "неверный формат Telegram: #{telegram}"
+      raise ArgumentError, "неверный формат telegram: #{telegram}"
     end
   end
 
@@ -84,7 +104,7 @@ class Student
 
   def validate
     unless github_available?
-      raise ArgumentError, "отсутствует GitHub профиль"
+      raise ArgumentError, "отсутствует github профиль"
     end
     
     unless contacts_available?
@@ -113,10 +133,6 @@ class Student
 
   def self.valid_email?(email)
     email.match?(/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i)
-  end
-
-  def full_name
-    "#{@surname} #{@name[0]}#{'.'}#{@lastname[0]}"
   end
 
   def to_s
