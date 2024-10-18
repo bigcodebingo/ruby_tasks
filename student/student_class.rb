@@ -7,7 +7,7 @@ class Student
     self.surname = surname
     self.lastname = lastname
   
-    set_contacts(phone: extras[:phone], telegram: extras[:telegram], email: extras[:email], github: extras[:github])
+    set_contacts(extras)
     validate
   end
   
@@ -43,11 +43,11 @@ class Student
     end
   end
 
-  def set_contacts(phone: nil, telegram: nil, email: nil, github: nil)
-    self.github=github
-    self.phone = phone
-    self.telegram = telegram
-    self.email = email
+  def set_contacts(extras = {})
+    self.github = extras[:github]
+    self.phone = extras[:phone]
+    self.telegram = extras[:telegram]
+    self.email = extras[:email]
   end
 
   private def github=(github)
@@ -118,7 +118,7 @@ class Student
   def full_name
     "#{@surname} #{@name[0]}#{'.'}#{@lastname[0]}"
   end
-  
+
   def to_s
     "id: #{@id}, fullname: #{full_name}, phone: #{@phone || 'empty'}, tg: #{@telegram || 'empty'}, email: #{@email || 'empty'}, git: #{@github || 'empty'}"
   end
