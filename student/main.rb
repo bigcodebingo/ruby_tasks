@@ -1,5 +1,6 @@
-require_relative 'Student_class'
-require_relative 'Student_short_class'
+require_relative 'student_class'
+require_relative 'student_short_class'
+require_relative 'parent_student_class'
 
 student1 = Student.new(1, "Ivan", "Ivanov", "Ivanovich", phone: "+79881677818", telegram: "@ivanovv", email: "ivanov@example.com", github: "https://github.com/user-name_123")
 student2 = Student.new(2, "Maria", "Petrova", "Sergeevna", phone: "89881677818", github: "https://github.com/marry")
