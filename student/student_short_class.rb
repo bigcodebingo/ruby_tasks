@@ -1,6 +1,7 @@
-require_relative 'student_class'
+require_relative 'parent_student_class'
 
-class Student_short
+class Student_short < Parent_student
+
   attr_reader :id, :fio, :git, :contact
 
   def initialize(student: nil, id: nil, info_str: nil)
@@ -15,6 +16,8 @@ class Student_short
       @fio = parsed_info[:fio]
       @git = parsed_info[:git]
       @contact = parsed_info[:contact]
+      else
+        raise ArgumentError, "необходимо передать либо объект Student, либо id и info_str"
     end
   end
 
@@ -29,5 +32,4 @@ class Student_short
   def to_s
     "id: #{@id}, fullname: #{@fio}, git: #{@git || 'empty'}, contacts: #{@contact || 'empty'}"
   end
-
 end
