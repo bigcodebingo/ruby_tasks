@@ -1,4 +1,5 @@
 class Student
+
   attr_reader :id, :name, :surname, :lastname, :phone, :telegram, :email, :github
   
   def initialize(id, name, surname, lastname, **extras)
@@ -50,11 +51,11 @@ class Student
     self.email = extras[:email]
   end
 
-  def get_github()
+  def get_git()
     @github || 'git отсутствует'
   end
 
-  def contact_info()
+  def get_contacts()
     contacts = []
     contacts << "телефон: #{@phone}" if @phone
     contacts << "telegram: #{@telegram}" if @telegram
@@ -67,7 +68,7 @@ class Student
   end
 
   def getInfo()
-    "#{full_name}, github: #{get_github}, связь: #{contact_info}"
+    "#{full_name}, github: #{get_git}, связь: #{get_contacts}"
   end
 
   private def github=(github)
