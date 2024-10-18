@@ -12,6 +12,8 @@ class Student
     self.telegram = extras[:telegram]
     self.email = extras[:email]
     self.github = extras[:github]
+
+    validate
   end
   
   def self.valid_names?(name)
@@ -92,6 +94,27 @@ class Student
 
   def full_name
     "#{@surname} #{@name[0]}#{'.'}#{@lastname[0]}"
+  end
+
+  def github_available?
+    !@github.nil? && !@github.empty?
+  end
+
+  def contacts_available?
+    !(@phone.nil? || @phone.empty?) || 
+    !(@telegram.nil? || @telegram.empty?) || 
+    !(@email.nil? || @email.empty?)
+  end
+
+  def validate
+    unless github_available?
+      raise ArgumentError, "отсутствует GitHub профиль"
+    end
+    
+    unless contacts_available?
+      raise ArgumentError, "необходимо указать хотя бы один контакт для связи"
+    end
+    true
   end
 
   def to_s
