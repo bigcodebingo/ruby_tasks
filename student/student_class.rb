@@ -1,47 +1,17 @@
-class Student
+require_relative 'parent_student_class' 
 
-  attr_reader :id, :name, :surname, :lastname, :phone, :telegram, :email, :github
-  
+class Student < Parent_student
+  attr_reader :id, :phone, :telegram, :email, :github
+
   def initialize(id, name, surname, lastname, **extras)
+    super(name, surname, lastname)  
     @id = id
-    self.name = name
-    self.surname = surname
-    self.lastname = lastname
-  
     set_contacts(extras)
-    validate
-  end
-  
-  def self.valid_names?(name)
-    name.match?(/^[а-яА-ЯёЁa-zA-Z]+$/)
+    validate_contacts
   end
 
   def self.valid_github?(github)
     github.match?(/\Ahttps:\/\/github\.com\/[a-zA-Z0-9_-]+\z/)
-  end
-
-  def name=(name)
-    if Student.valid_names?(name)
-      @name = name
-    else
-      raise ArgumentError, "неверный формат имени: #{name}"
-    end
-  end
-
-  def surname=(surname)
-    if Student.valid_names?(surname)
-      @surname = surname
-    else
-      raise ArgumentError, "неверный формат фамилии: #{surname}"
-    end
-  end
-
-  def lastname=(lastname)
-    if Student.valid_names?(lastname)
-      @lastname = lastname
-    else
-      raise ArgumentError, "неверный формат отчества: #{lastname}"
-    end
   end
 
   def set_contacts(extras = {})
@@ -51,11 +21,11 @@ class Student
     self.email = extras[:email]
   end
 
-  def get_git()
+  def get_git
     @github || 'git отсутствует'
   end
 
-  def get_contacts()
+  def get_contacts
     contacts = []
     contacts << "телефон: #{@phone}" if @phone
     contacts << "telegram: #{@telegram}" if @telegram
@@ -63,11 +33,7 @@ class Student
     contacts.empty? ? "контакты отсутствуют" : contacts.join(', ')
   end
 
-  def full_name()
-    "#{@surname} #{@name[0]}#{'.'}#{@lastname[0]}"
-  end
-
-  def getInfo()
+  def getInfo
     "#{full_name}, github: #{get_git}, связь: #{get_contacts}"
   end
 
@@ -103,7 +69,7 @@ class Student
     end
   end
 
-  def validate
+  def validate_contacts
     unless github_available?
       raise ArgumentError, "отсутствует github профиль"
     end
@@ -111,7 +77,6 @@ class Student
     unless contacts_available?
       raise ArgumentError, "необходимо указать хотя бы один контакт для связи"
     end
-    true
   end
 
   def github_available?
@@ -139,5 +104,4 @@ class Student
   def to_s
     "id: #{@id}, fullname: #{full_name}, phone: #{@phone || 'empty'}, tg: #{@telegram || 'empty'}, email: #{@email || 'empty'}, git: #{@github || 'empty'}"
   end
-
 end
