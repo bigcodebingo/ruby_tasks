@@ -3,16 +3,16 @@ class Student
     attr_reader :id, :name, :surname, :lastname
     attr_accessor :phone, :telegram, :email, :github
       
-    def initialize(id, name, surname, lastname, phone: nil, telegram: nil, email: nil, github: nil)
-        @id = id
-        @name = name
-        @surname = surname
-        @lastname = lastname
-        @phone = phone
-        @telegram = telegram
-        @email = email
-        @github = github
-      end
+    def initialize(id, name, surname, lastname, **extras)
+      @id = id
+      @name = name
+      @surname = surname
+      @lastname = lastname
+      @phone = extras[:phone]
+      @telegram = extras[:telegram]
+      @email = extras[:email]
+      @github = extras[:github]
+    end
       
       def full_name
         "#{@surname} #{@name[0]}#{'.'}#{@lastname[0]}"
