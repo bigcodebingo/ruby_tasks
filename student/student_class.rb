@@ -1,35 +1,18 @@
 class Student
-
-  attr_reader :id, :name, :surname, :lastname
-  attr_accessor :phone, :telegram, :email, :github
-    
+  attr_reader :id, :name, :surname, :lastname, :phone, :telegram, :email, :github
+  
   def initialize(id, name, surname, lastname, **extras)
     @id = id
     self.name = name
     self.surname = surname
     self.lastname = lastname
-    self.phone = extras[:phone]
-    self.telegram = extras[:telegram]
-    self.email = extras[:email]
-    self.github = extras[:github]
-
+  
+    set_contacts(phone: extras[:phone], telegram: extras[:telegram], email: extras[:email], github: extras[:github])
     validate
   end
   
   def self.valid_names?(name)
-		name.match?(/^[а-яА-ЯёЁa-zA-Z]+$/)
-	end
-
-  def self.valid_phone?(phone)
-    phone.match?(/^(?:\+7|8)\d{10}$/)
-  end
-
-  def self.valid_telegram?(telegram)
-    telegram.match?(/\A@[\w\d_]{5,32}\z/)
-  end
-
-  def self.valid_email?(email)
-    email.match?(/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i)
+    name.match?(/^[а-яА-ЯёЁa-zA-Z]+$/)
   end
 
   def self.valid_github?(github)
@@ -60,31 +43,14 @@ class Student
     end
   end
 
-  def phone=(phone)
-    if phone.nil? || Student.valid_phone?(phone) 
-      @phone = phone
-    else 
-      raise ArgumentError, "неверный формат телефона: #{phone}"
-    end
+  def set_contacts(phone: nil, telegram: nil, email: nil, github: nil)
+    self.github=github
+    self.phone = phone
+    self.telegram = telegram
+    self.email = email
   end
 
-  def telegram=(telegram)
-    if telegram.nil? || Student.valid_telegram?(telegram)
-      @telegram = telegram
-    else
-      raise ArgumentError, "неверный формат Telegram: #{telegram}"
-    end
-  end
-
-  def email=(email)
-    if email.nil? || Student.valid_email?(email)
-      @email = email
-    else
-      raise ArgumentError, "неверный формат email: #{email}"
-    end
-  end
-
-  def github=(github)
+  private def github=(github)
     if github.nil? || Student.valid_github?(github)
       @github = github
     else
@@ -92,18 +58,28 @@ class Student
     end
   end
 
-  def full_name
-    "#{@surname} #{@name[0]}#{'.'}#{@lastname[0]}"
+  private def phone=(phone)
+    if phone.nil? || Student.valid_phone?(phone)
+      @phone = phone
+    else
+      raise ArgumentError, "неверный формат телефона: #{phone}"
+    end
   end
 
-  def github_available?
-    !@github.nil? && !@github.empty?
+  private def telegram=(telegram)
+    if telegram.nil? || Student.valid_telegram?(telegram)
+      @telegram = telegram
+    else
+      raise ArgumentError, "неверный формат Telegram: #{telegram}"
+    end
   end
 
-  def contacts_available?
-    !(@phone.nil? || @phone.empty?) || 
-    !(@telegram.nil? || @telegram.empty?) || 
-    !(@email.nil? || @email.empty?)
+  private def email=(email)
+    if email.nil? || Student.valid_email?(email)
+      @email = email
+    else
+      raise ArgumentError, "неверный формат email: #{email}"
+    end
   end
 
   def validate
@@ -117,7 +93,34 @@ class Student
     true
   end
 
+  def github_available?
+    !@github.nil? && !@github.empty?
+  end
+
+  def contacts_available?
+    !(@phone.nil? || @phone.empty?) || 
+    !(@telegram.nil? || @telegram.empty?) || 
+    !(@email.nil? || @email.empty?)
+  end
+
+  def self.valid_phone?(phone)
+    phone.match?(/^(?:\+7|8)\d{10}$/)
+  end
+
+  def self.valid_telegram?(telegram)
+    telegram.match?(/\A@[\w\d_]{5,32}\z/)
+  end
+
+  def self.valid_email?(email)
+    email.match?(/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i)
+  end
+
+  def full_name
+    "#{@surname} #{@name[0]}#{'.'}#{@lastname[0]}"
+  end
+  
   def to_s
     "id: #{@id}, fullname: #{full_name}, phone: #{@phone || 'empty'}, tg: #{@telegram || 'empty'}, email: #{@email || 'empty'}, git: #{@github || 'empty'}"
   end
+
 end
