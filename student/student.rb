@@ -1,4 +1,4 @@
-require_relative 'parent_student_class'
+require_relative 'parent_student'
 
 class Student < Parent_student
 
@@ -60,7 +60,6 @@ class Student < Parent_student
     end
   end
 
-<<<<<<< HEAD
   def set_contacts(phone: nil, telegram: nil, email: nil)
     self.phone = phone
     self.telegram = telegram
@@ -77,26 +76,6 @@ class Student < Parent_student
 
   def getInfo
     "#{full_name}, github: #{@github}, contacts: #{get_contacts}"
-=======
-  def validate_contacts
-    unless github_available?
-      raise ArgumentError, "отсутствует github профиль"
-    end
-    
-    unless contacts_available?
-      raise ArgumentError, "необходимо указать хотя бы один контакт для связи"
-    end
-  end
-
-  def github_available?
-    !@github.nil? && !@github.empty?
-  end
-
-  def contacts_available?
-    !(@phone.nil? || @phone.empty?) || 
-    !(@telegram.nil? || @telegram.empty?) || 
-    !(@email.nil? || @email.empty?)
->>>>>>> d6250fc565cbfe1b4572ca3692c7cd752c5440ff
   end
 
   def self.valid_phone?(phone)
@@ -111,14 +90,7 @@ class Student < Parent_student
     email.match?(/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i)
   end
 
-<<<<<<< HEAD
   def self.valid_names?(name)
     name.match?(/^[а-яА-ЯёЁa-zA-Z]+$/)
   end
 end
-=======
-  def to_s
-    "id: #{@id}, fullname: #{full_name}, phone: #{@phone || 'empty'}, tg: #{@telegram || 'empty'}, email: #{@email || 'empty'}, git: #{@github || 'empty'}"
-  end
-end
->>>>>>> d6250fc565cbfe1b4572ca3692c7cd752c5440ff

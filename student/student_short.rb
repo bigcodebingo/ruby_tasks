@@ -1,35 +1,45 @@
-require_relative 'parent_student_class'
+require_relative 'parent_student'
+require_relative 'student'
 
 class Student_short < Parent_student
 
-  attr_reader :id, :fio, :git, :contact
+  attr_reader :id, :fullname, :github, :contact
 
-  def initialize(student: nil, id: nil, info_str: nil)
-    if student
-      @id = student.id
-      @fio = student.full_name  
-      @git = student.github  
-      @contact = student.get_contacts
-    elsif id && info_str
-      @id = id
-      parsed_info = parse_info(info_str)
-      @fio = parsed_info[:fio]
-      @git = parsed_info[:git]
-      @contact = parsed_info[:contact]
-      else
-        raise ArgumentError, "необходимо передать либо объект Student, либо id и info_str"
+  def initialize(id:, fullname:, github: nil, contact: nil)
+    super(id: id, github: github)
+    self.fullname = fullname
+    @contact = contact
+  end
+
+  def self.init_from_student(student)
+    new(id: student.id, 
+        fullname: student.full_name, 
+        github: student.github, 
+        contact: student.get_contacts)
+  end
+
+  def self.init_from_info(id, info_str)
+    parsed_info = parse_info(info_str)
+    puts parsed_info
+    new(id: id,
+        fullname: parsed_info[:fullname],
+        github: parsed_info[:github],
+        contact: parsed_info[:contact])
+  end
+
+  def fullname=(fullname)
+    if self.class.valid_fullname?(fullname)
+      @fullname = fullname
+    else
+      raise ArgumentError, "неверный формат ФИО: #{fullname}"
     end
   end
 
-  private def parse_info(info_str)
+  def self.parse_info(info_str)
     parts = info_str.split(", ")
-    fio = parts[0]
-    git = parts[1].split("github: ")[1] if parts[1]
+    fullname = parts[0]
+    github = parts[1].split("github: ")[1] if parts[1]
     contact = parts[2].split("contacts: ")[1] if parts[2]
-    { fio: fio, git: git, contact: contact }
-  end
-
-  def to_s
-    "id: #{@id}, fullname: #{@fio}, git: #{@git || 'empty'}, contacts: #{@contact || 'empty'}"
+    { fullname: fullname, github: github, contact: contact }
   end
 end
