@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 require_relative 'parent_student_class'
 
 class Student < Parent_student
@@ -34,52 +33,6 @@ class Student < Parent_student
       @lastname = lastname
     else
       raise ArgumentError, "неверный формат отчества: #{lastname}"
-=======
-require_relative 'parent_student_class' 
-
-class Student < Parent_student
-  attr_reader :id, :phone, :telegram, :email, :github
-
-  def initialize(id, name, surname, lastname, **extras)
-    super(name, surname, lastname)  
-    @id = id
-    set_contacts(extras)
-    validate_contacts
-  end
-
-  def self.valid_github?(github)
-    github.match?(/\Ahttps:\/\/github\.com\/[a-zA-Z0-9_-]+\z/)
-  end
-
-  def set_contacts(extras = {})
-    self.github = extras[:github]
-    self.phone = extras[:phone]
-    self.telegram = extras[:telegram]
-    self.email = extras[:email]
-  end
-
-  def get_git
-    @github || 'git отсутствует'
-  end
-
-  def get_contacts
-    contacts = []
-    contacts << "телефон: #{@phone}" if @phone
-    contacts << "telegram: #{@telegram}" if @telegram
-    contacts << "email: #{@email}" if @email
-    contacts.empty? ? "контакты отсутствуют" : contacts.join(', ')
-  end
-
-  def getInfo
-    "#{full_name}, github: #{get_git}, связь: #{get_contacts}"
-  end
-
-  private def github=(github)
-    if github.nil? || Student.valid_github?(github)
-      @github = github
-    else
-      raise ArgumentError, "неверный формат github: #{github}"
->>>>>>> d6250fc565cbfe1b4572ca3692c7cd752c5440ff
     end
   end
 
