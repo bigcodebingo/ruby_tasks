@@ -26,3 +26,4 @@ puts info_str
 student_short2 = Student_short.init_from_info(2, info_str)
 puts ""
 puts student_short2
+puts ""

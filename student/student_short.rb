@@ -27,7 +27,7 @@ class Student_short < Parent_student
         contact: parsed_info[:contact])
   end
 
-  def fullname=(fullname)
+  private def fullname=(fullname)
     if self.class.valid_fullname?(fullname)
       @fullname = fullname
     else
