@@ -2,7 +2,7 @@ require_relative 'parent_student'
 
 class Student < Parent_student
 
-  attr_reader :id, :phone, :telegram, :email, :github
+  attr_reader  :name, :surname, :lastname, :phone, :telegram, :email
 
   def initialize(id: nil, name: , surname: , lastname: , phone: nil, telegram: nil, email: nil, github: nil)
     super(id: id, github:github)  
