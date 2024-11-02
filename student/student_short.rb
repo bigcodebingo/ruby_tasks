@@ -20,7 +20,6 @@ class Student_short < Parent_student
 
   def self.init_from_info(id, info_str)
     parsed_info = parse_info(info_str)
-    puts parsed_info
     new(id: id,
         fullname: parsed_info[:fullname],
         github: parsed_info[:github],
