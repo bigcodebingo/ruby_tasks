@@ -13,7 +13,7 @@ class Student < Parent_student
   end
 
   def name=(name)
-    if self.class.valid_names?(name)
+    if Student.valid_names?(name)
       @name = name
     else
       raise ArgumentError, "неверный формат имени: #{name}"
@@ -21,7 +21,7 @@ class Student < Parent_student
   end
 
   def surname=(surname)
-    if self.class.valid_names?(surname)
+    if Student.valid_names?(surname)
       @surname = surname
     else
       raise ArgumentError, "неверный формат фамилии: #{surname}"
@@ -29,7 +29,7 @@ class Student < Parent_student
   end
 
   def lastname=(lastname)
-    if self.class.valid_names?(lastname)
+    if Student.valid_names?(lastname)
       @lastname = lastname
     else
       raise ArgumentError, "неверный формат отчества: #{lastname}"
