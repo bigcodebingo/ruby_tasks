@@ -8,7 +8,7 @@ class Parent_student
   end
 
   def github=(github)
-    if github.nil? || Student.valid_github?(github)
+    if github.nil? || self.class.valid_github?(github)
       @github = github
     else
       raise ArgumentError, "неверный формат github: #{github}"
