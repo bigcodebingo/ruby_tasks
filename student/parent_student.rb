@@ -30,11 +30,25 @@ class Parent_student
   def contacts_available?
     !(@phone.nil? || @phone.empty?) || 
     !(@telegram.nil? || @telegram.empty?) || 
-    !(@email.nil? || @email.empty?)
+    !(@email.nil? || @email.empty?) ||
+    !(@contact.nil? || @contact.empty?)
   end
 
   def validate_contacts
     github_available? && contacts_available?
+  end
+
+  def get_contact
+    if contacts_available?
+      contacts = []
+      contacts << "phone: #{@phone}" if @phone
+      contacts << "telegram: #{@telegram}" if @telegram
+      contacts << "email: #{@email}" if @email
+      contacts << "#{@contact}" if @contact
+      return contacts[0]
+    else 
+      return nil
+    end
   end
 
   def full_name
@@ -53,6 +67,6 @@ class Parent_student
     details << "#{@email}" if @email
     details << "#{@github}" if @github
     details << "#{@contact}" if @contact
-    details.empty? ? "нет доступной информации" : details.join(', ')
+    details.join(', ')
   end 
 end
