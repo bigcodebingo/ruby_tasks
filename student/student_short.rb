@@ -4,6 +4,7 @@ require_relative 'student'
 class Student_short < Parent_student
 
   attr_reader :fullname, :contact
+  private_class_method :new
 
   def initialize(id:, fullname:, github: nil, contact: nil)
     super(id: id, github: github)
@@ -15,7 +16,7 @@ class Student_short < Parent_student
     new(id: student.id, 
         fullname: student.full_name, 
         github: student.github, 
-        contact: student.get_contacts)
+        contact: student.get_contact)
   end
 
   def self.init_from_info(id, info_str)
@@ -38,7 +39,7 @@ class Student_short < Parent_student
     parts = info_str.split(", ")
     fullname = parts[0]
     github = parts[1].split("github: ")[1] if parts[1]
-    contact = parts[2].split("contacts: ")[1] if parts[2]
+    contact = parts[2].split("contact: ")[1] if parts[2]
     { fullname: fullname, github: github, contact: contact }
   end
 end
