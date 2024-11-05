@@ -11,12 +11,6 @@ puts student2
 puts student3
 puts ""
 puts student1.getInfo
-puts ""
-student_short1 = Student_short.new(id: 1, fullname: "Бачурин И.А.", github: "https://github.com/ivan", contact: "+79881677818")
-puts student_short1
-puts ""
-puts student1.get_contacts
-puts ""
 student_short = Student_short.init_from_student(student1)
 puts ""
 puts student_short
@@ -25,5 +19,6 @@ puts ""
 puts info_str
 student_short2 = Student_short.init_from_info(2, info_str)
 puts ""
-puts student_short2
+puts student_short2.get_contact
 puts ""
+puts student_short2.github
