@@ -36,6 +36,12 @@ class Student < Parent_student
     end
   end
 
+  def set_contacts(phone: nil, telegram: nil, email: nil)
+    self.phone = phone
+    self.telegram = telegram
+    self.email = email
+  end
+  
   private def phone=(phone)
     if phone.nil? || Student.valid_phone?(phone)
       @phone = phone
@@ -60,22 +66,8 @@ class Student < Parent_student
     end
   end
 
-  def set_contacts(phone: nil, telegram: nil, email: nil)
-    self.phone = phone
-    self.telegram = telegram
-    self.email = email
-  end
-
-  def get_contacts
-    contacts = []
-    contacts << "телефон: #{@phone}" if @phone
-    contacts << "telegram: #{@telegram}" if @telegram
-    contacts << "email: #{@email}" if @email
-    contacts.empty? ? "контакты отсутствуют" : contacts.join(', ')
-  end
-
   def getInfo
-    "#{full_name}, github: #{@github}, contacts: #{get_contacts}"
+    "#{full_name}, github: #{@github}, contact: #{get_contact}"
   end
 
   def self.valid_phone?(phone)
