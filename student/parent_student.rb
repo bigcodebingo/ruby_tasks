@@ -1,6 +1,6 @@
 class Parent_student
   
-  attr_reader :id, :github
+  attr_reader :id, :github, :fullname
 
   def initialize(id: nil, github: nil)
     @id=id
@@ -21,6 +21,18 @@ class Parent_student
 
   def self.valid_github?(github)
     github.match?(/\Ahttps:\/\/github\.com\/[a-zA-Z0-9_-]+\z/)
+  end
+
+  def self.valid_phone?(phone)
+    phone.match?(/^(?:\+7|8)\d{10}$/)
+  end
+
+  def self.valid_telegram?(telegram)
+    telegram.match?(/\A@[\w\d_]{5,32}\z/)
+  end
+
+  def self.valid_email?(email)
+    email.match?(/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i)
   end
 
   def github_available?
@@ -49,10 +61,6 @@ class Parent_student
     else 
       return nil
     end
-  end
-
-  def full_name
-    @fullname = "#{@surname} #{@name[0]}#{'.'}#{@lastname[0]}#{'.'}"
   end
 
   def to_s

@@ -65,21 +65,13 @@ class Student < Parent_student
       raise ArgumentError, "неверный формат email: #{email}"
     end
   end
+  
+  def full_name
+    @fullname = "#{@surname} #{@name[0]}#{'.'}#{@lastname[0]}#{'.'}"
+  end
 
   def getInfo
     "#{full_name}, github: #{@github}, contact: #{get_contact}"
-  end
-
-  def self.valid_phone?(phone)
-    phone.match?(/^(?:\+7|8)\d{10}$/)
-  end
-
-  def self.valid_telegram?(telegram)
-    telegram.match?(/\A@[\w\d_]{5,32}\z/)
-  end
-
-  def self.valid_email?(email)
-    email.match?(/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i)
   end
 
   def self.valid_names?(name)

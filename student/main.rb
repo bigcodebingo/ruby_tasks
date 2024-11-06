@@ -15,10 +15,9 @@ student_short = Student_short.init_from_student(student1)
 puts ""
 puts student_short
 info_str=student2.getInfo
-puts ""
 puts info_str
+puts ""
 student_short2 = Student_short.init_from_info(2, info_str)
+puts student_short2
 puts ""
-puts student_short2.get_contact
-puts ""
-puts student_short2.github
+puts student_short.fullname
