@@ -3,7 +3,6 @@ require_relative 'student'
 
 class Student_short < Parent_student
 
-  attr_reader :contact
   private_class_method :new
   private :github=
 
