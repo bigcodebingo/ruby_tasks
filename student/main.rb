@@ -21,3 +21,4 @@ student_short2 = Student_short.init_from_info(2, info_str)
 puts student_short2
 puts ""
 puts student_short.fullname
+puts student_short2.get_contact
