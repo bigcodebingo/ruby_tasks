@@ -9,9 +9,7 @@ def local_min_check?(array, index)
 end
 
 def cyclic_shift(array)
-    return array if array.empty? || array.size == 1
-    first = array.shift  
-    array.push(first)
+    array.rotate
 end
 
 def separate_even_odd_index(array)
