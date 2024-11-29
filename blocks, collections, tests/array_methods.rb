@@ -45,6 +45,7 @@ if ARGV.empty?
 else
   path = ARGV[0]
   array = read_array(path)
+  ARGV.clear
 end
 
 puts "выберите метод"
@@ -56,6 +57,7 @@ puts "4. separate_even_odd_index"
 puts "5. new_lists"
 puts 
 puts "ваш выбор:"
+
 choice = gets.chomp.to_i
 
 case choice
