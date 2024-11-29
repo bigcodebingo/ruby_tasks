@@ -28,7 +28,7 @@ def find_min(arr)
     method = ARGV[0].to_i
     file = ARGV[1]
     array = read_array(file)
-    p
+    
     if method == 1
       min = find_min(array)
       if min.nil?
