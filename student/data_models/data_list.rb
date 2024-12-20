@@ -29,7 +29,7 @@ class DataList
 
     def get_names
         raise ArgumentError, "метод не реализован"
-      end
+    end
     
     def get_data
         res = @data.map.with_index do |element, index|
