@@ -33,7 +33,7 @@ class DataList
     
     def get_data
         res = @data.map.with_index do |element, index|
-            self.data_row(index)
+            self.make_row(index)
         end
         DataTable.new(res)
     end
@@ -43,4 +43,3 @@ class DataList
     end
 
 end
-

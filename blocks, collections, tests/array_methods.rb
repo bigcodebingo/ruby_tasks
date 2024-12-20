@@ -12,7 +12,7 @@ def cyclic_shift(array)
     array.rotate
 end
 
-def separate_even_odd_index(array)
+def separate_dd_even_oindex(array)
     even = array.select.with_index { |_, index| index.even? }
     odd = array.select.with_index { |_, index| index.odd? }
     (even + odd).join(' ')

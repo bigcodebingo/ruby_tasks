@@ -1,6 +1,7 @@
 require_relative 'student'
 require_relative 'student_short'
 require_relative 'parent_student'
+require_relative './data_models/data_list_student_short.rb'
 
 student1 = Student.new(id: 1, name: "Ivan", surname: "Ivanov", lastname: "Ivanovich", phone: "+79881677818", telegram: "@ivanovv", email: "ivanov@example.com", github: "https://github.com/user-name_123")
 student2 = Student.new(id: 2, name: "Maria", surname: "Petrova", lastname: "Sergeevna", phone: "89881677818", github: "https://github.com/marry")
@@ -22,3 +23,8 @@ puts student_short2
 puts ""
 puts student_short.fullname
 puts student_short2.get_contact
+
+table = DataTable.new([[]])
+data_list_1 = DataListStudentShort.new([student_short, student_short2])
+names = data_list_1.get_names()
+puts names
