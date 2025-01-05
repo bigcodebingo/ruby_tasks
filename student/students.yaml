@@ -1,0 +1,25 @@
+---
+- :id: 2
+  :name: Сидор
+  :surname: Сидорович
+  :lastname: Петров
+  :phone: "+74951234567"
+  :telegram:
+  :email: sidor@example.com
+  :github: https://github.com/sidorov
+- :id: 3
+  :name: Николай
+  :surname: Николаевич
+  :lastname: Петров
+  :phone: "+71234571238"
+  :telegram: "@kuznetsov_nikolay"
+  :email: kuznetsov.nikolay@example.com
+  :github: https://github.com/kuznetsov-nikolay
+- :id: 4
+  :name: Sergey
+  :surname: Sidorov
+  :lastname: Alexandrovich
+  :phone:
+  :telegram: "@serjj"
+  :email:
+  :github: https://github.com/serj
