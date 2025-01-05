@@ -1,6 +1,7 @@
 class Parent_student
   
-  attr_reader :id, :github, :fullname
+  attr_accessor :id
+  attr_reader :github, :fullname
 
   def initialize(id: nil, github: nil)
     @id=id
