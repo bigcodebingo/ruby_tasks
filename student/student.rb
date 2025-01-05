@@ -12,6 +12,19 @@ class Student < Parent_student
     set_contacts(phone: phone, telegram: telegram, email: email)
   end
 
+  def to_h
+    {
+      id: @id,
+      name: @name,
+      surname: @surname,
+      lastname: @lastname,
+      phone: @phone,
+      telegram: @telegram,
+      email: @email,
+      github: @github
+    }
+  end
+  
   def name=(name)
     if Student.valid_names?(name)
       @name = name
