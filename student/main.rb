@@ -1,9 +1,9 @@
 require_relative 'student'
-require_relative 'student_short'
+# require_relative 'student_short'
 require_relative './data_models/data_list_student_short.rb'
-require_relative 'student_list_yaml'
-require_relative 'student_list_json'
-
+require_relative './strategy/student_list_yaml'
+require_relative './strategy/student_list_json'
+require_relative './strategy/student_list'
 # puts student1
 # puts student2
 # puts student3
@@ -50,16 +50,27 @@ student2 = Student.new(id: 2, name: "Maria", surname: "Petrova", lastname: "Serg
 # ])
 
 # puts test.get_data()
-students_list = StudentsListJSON.new('students.json')
+# students_list = StudentsListJSON.new('students.json')
 # students_list.delete_student_by_id(1)
-puts students_list.students
-new_student = Student.new(id: 5, name: "Sergey", surname: "Sidorov", lastname: "Alexandrovich", telegram: "@serjj", github: "https://github.com/serj")
-students_list.add_student(new_student)
+# puts students_list.students
+# new_student = Student.new(id: 5, name: "Sergey", surname: "Sidorov", lastname: "Alexandrovich", telegram: "@serjj", github: "https://github.com/serj")
+# students_list.add_student(new_student)
 
-puts 
 # puts students_list.sort_by_surname_fullname!
 
-students_list.save_to_file
+# students_list.save_to_file
 
 # data_list = students_list.get_k_n_student_short_list(1, 3)
 # puts data_list.get_data()
+
+json_strategy = StudentsListJSON.new
+students_list = StudentsList.new('students.json', json_strategy)
+
+
+students_list.add_student(Student.new(id: nil, name: 'Иван', surname: 'Иванович', lastname: 'Иванов'))
+
+yaml_strategy = StudentsListYAML.new
+students_list.update_strategy('students.yaml', yaml_strategy)
+students_list.add_student(Student.new(id: nil, name: 'Иваныч', surname: 'Иванович', lastname: 'сосал'))
+
+students_list.save_students
