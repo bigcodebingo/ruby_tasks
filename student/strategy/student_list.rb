@@ -8,7 +8,7 @@ class StudentsList
     end
 
     def load_students
-        raw_data = @storage_strategy.read_from_file(@file_path)
+        @storage_strategy.read_from_file(@file_path)
     end
 
     def save_students
