@@ -10,33 +10,13 @@
     "github": "https://github.com/user-name_123"
   },
   {
-    "id": 4,
-    "name": "Sergey",
-    "surname": "Sidorov",
-    "lastname": "Alexandrovich",
-    "phone": null,
-    "telegram": "@serjj",
-    "email": null,
-    "github": "https://github.com/serj"
-  },
-  {
     "id": 3,
-    "name": "Sergey",
-    "surname": "Sidorov",
-    "lastname": "Alexandrovich",
+    "name": "Иван",
+    "surname": "Иванович",
+    "lastname": "Иванов",
     "phone": null,
-    "telegram": "@serjj",
+    "telegram": null,
     "email": null,
-    "github": "https://github.com/serj"
-  },
-  {
-    "id": 5,
-    "name": "Sergey",
-    "surname": "Sidorov",
-    "lastname": "Alexandrovich",
-    "phone": null,
-    "telegram": "@serjj",
-    "email": null,
-    "github": "https://github.com/serj"
+    "github": null
   }
 ]
