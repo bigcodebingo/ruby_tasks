@@ -4,7 +4,7 @@ class StudentsList
     def initialize(file_path, storage_strategy)
         @file_path = file_path
         @storage_strategy = storage_strategy
-        @students = load_students
+        @students = read_from_file
     end
 
     def read_from_file
@@ -19,7 +19,7 @@ class StudentsList
     def update_strategy(new_file_path, new_storage_strategy)
         @file_path = new_file_path
         @storage_strategy = new_storage_strategy
-        @students = load_students
+        @students = read_from_file
     end
 
     def get_student_by_id(id)
@@ -44,8 +44,8 @@ class StudentsList
     end
 
     def add_student(student)
-        if @students.any? { |element| element == student }
-            raise NameError, 'уже существует'
+        if @students.include?(student)
+            raise ArgumentError, 'уже существует'
         end
         student_id_list = @students.map(&:id)
         max_id = student_id_list.max || 0
@@ -56,8 +56,8 @@ class StudentsList
     def update_student_by_id(id, new_student)
         index = @students.find_index { |student| student.id == id }
         raise IndexError, "wrong id" unless index
-        if @students.any? { |element| element == new_student }
-            raise NameError, 'уже существует'
+        if @students.include?(student)
+            raise ArgumentError, 'уже существует'
         end
         @students[index] = new_student
         new_student.id = id

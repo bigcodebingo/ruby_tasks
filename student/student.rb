@@ -90,4 +90,8 @@ class Student < Parent_student
   def self.valid_names?(name)
     name.match?(/^[а-яА-ЯёЁa-zA-Z]+$/)
   end
+
+  def ==(student)
+		self.github == student.github || self.phone == student.phone || self.telegram == student.telegram || self.email == student.email
+	end
 end
