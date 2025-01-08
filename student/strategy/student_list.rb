@@ -65,7 +65,7 @@ class StudentsList
 
     def delete_student_by_id(id)
         @students.reject! { |student| student.id == id }
-        save_to_file
+
     end
 
     def get_student_short_count
