@@ -28,7 +28,7 @@ class DataList
     end
 
     def get_names
-        raise ArgumentError, "метод не реализован"
+        raise NotImplementedError, "метод не реализован"
     end
     
     def get_data
@@ -39,7 +39,7 @@ class DataList
     end
     
     def make_row(index)
-        raise ArgumentError, "метод не реализован"
+        raise NotImplementedError, "метод не реализован"
     end
 
 end

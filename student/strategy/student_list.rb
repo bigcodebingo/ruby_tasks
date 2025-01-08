@@ -19,7 +19,6 @@ class StudentsList
     def update_strategy(new_file_path, new_storage_strategy)
         @file_path = new_file_path
         @storage_strategy = new_storage_strategy
-        @students = read_from_file
     end
 
     def get_student_by_id(id)

@@ -92,6 +92,7 @@ class Student < Parent_student
   end
 
   def ==(student)
-		self.github == student.github || self.phone == student.phone || self.telegram == student.telegram || self.email == student.email
-	end
+	  self.github == student.github || self.phone == student.phone || self.telegram == student.telegram || self.email == student.email
+  end
+
 end
