@@ -3,7 +3,7 @@ include Fox
 
 class StudentApp < FXMainWindow
   def initialize(app)
-    super(app, "Students", width: 1003, height: 600)
+    super(app, "Students", width: 920, height: 600)
 
     @student_db = StudentsListDB.new()
     @current_page = 1
@@ -23,67 +23,89 @@ class StudentApp < FXMainWindow
     end
 
     filter_frame = FXVerticalFrame.new(tab1_frame, FRAME_SUNKEN | LAYOUT_FILL_Y | LAYOUT_FIX_WIDTH, width: 170)
-
     FXLabel.new(filter_frame, "ФИО:")
     @name_field = FXTextField.new(filter_frame, 25, nil, 0, TEXTFIELD_NORMAL | LAYOUT_FILL_X)
-
-
-    def create_filter_section(frame, label_text)
-      section_frame = FXVerticalFrame.new(frame, FRAME_SUNKEN | LAYOUT_FILL_X)
-      FXLabel.new(section_frame, label_text)
-      combo = FXComboBox.new(section_frame, 3, nil, 0, COMBOBOX_STATIC | LAYOUT_FILL_X)
-      combo.numVisible = 3
-      combo.appendItem("да")
-      combo.appendItem("нет")
-      combo.appendItem("не важно")
-      combo.setCurrentItem(2)
-
-      input_field = FXTextField.new(section_frame, 25, nil, 0, TEXTFIELD_NORMAL | LAYOUT_FILL_X)
-      input_field.enabled = false
-
-      combo.connect(SEL_COMMAND) do
-        if combo.currentItem == 0
-          input_field.enabled = true
-        else
-          input_field.enabled = false
-          input_field.text = "" 
-        end
-      end
-    end
-
     create_filter_section(filter_frame, "github:")
     create_filter_section(filter_frame, "email:")
     create_filter_section(filter_frame, "phone:")
     create_filter_section(filter_frame, "telegram:")
 
-    table_frame = FXVerticalFrame.new(tab1_frame, LAYOUT_FILL_X | LAYOUT_FILL_Y)
-    @student_table = FXTable.new(table_frame, nil, 0, TABLE_READONLY | LAYOUT_FILL | TABLE_NO_COLSELECT | TABLE_NO_ROWSELECT)
-    
+    table_frame = FXVerticalFrame.new(tab1_frame, FRAME_SUNKEN | LAYOUT_FILL_X | LAYOUT_FILL_Y)
+    @student_table = FXTable.new(table_frame, nil, 0, TABLE_COL_SIZABLE | LAYOUT_FILL | TABLE_READONLY | TABLE_NO_COLSELECT)
     controls = FXHorizontalFrame.new(table_frame, opts:LAYOUT_CENTER_X)
-    prev_button = FXButton.new(controls, "пред.")
+    prev_btn = FXButton.new(controls, "пред.")
     @page_label = FXLabel.new(controls, "стр: 1/1", nil, JUSTIFY_CENTER_X)
-    next_button = FXButton.new(controls, "след.")
-    
-    prev_button.connect(SEL_COMMAND) { change_page(-1) }
-    next_button.connect(SEL_COMMAND) { change_page(1) }
+    next_btn = FXButton.new(controls, "след.")
+    prev_btn.connect(SEL_COMMAND) { change_page(-1) }
+    next_btn.connect(SEL_COMMAND) { change_page(1) }
 
-    control_frame = FXVerticalFrame.new(tab1_frame, FRAME_SUNKEN | LAYOUT_FILL_Y | LAYOUT_FIX_WIDTH, width: 200)
-    FXButton.new(control_frame, "Add Student", nil, nil, 0, BUTTON_NORMAL | LAYOUT_CENTER_X)
-    FXButton.new(control_frame, "Edit Student", nil, nil, 0, BUTTON_NORMAL | LAYOUT_CENTER_X)
-    FXButton.new(control_frame, "Delete Student", nil, nil, 0, BUTTON_NORMAL | LAYOUT_CENTER_X)
+    
+    control_frame = FXVerticalFrame.new(tab1_frame, FRAME_SUNKEN | LAYOUT_FILL_Y | LAYOUT_FIX_WIDTH, width: 100)
+    @add_btn = FXButton.new(control_frame, "Добавить", nil, nil, 0, BUTTON_NORMAL | LAYOUT_FILL_X)
+    @edit_btn =FXButton.new(control_frame, "Изменить", nil, nil, 0, BUTTON_NORMAL | LAYOUT_FILL_X)
+    @delete_btn = FXButton.new(control_frame, "Удалить", nil, nil, 0, BUTTON_NORMAL | LAYOUT_FILL_X)
+    @update_btn = FXButton.new(control_frame, "Обновить", nil, nil, 0, BUTTON_NORMAL | LAYOUT_FILL_X)
+    @student_table.connect(SEL_SELECTED) { update_button_states }
+    @student_table.connect(SEL_DESELECTED) { update_button_states }
+    update_button_states
 
     self.connect(SEL_CLOSE) do
       app.exit
     end 
 
     load_from_db  
-
   end
 
-   private def set_column_widths
+  def get_selected_rows()
+    selected_rows = []
+    (0...@student_table.numRows).each do |row|
+        selected_rows << row if @student_table.rowSelected?(row)
+    end
+    selected_rows
+  end
+
+  def update_button_states()
+      selected_rows = get_selected_rows
+      case selected_rows.size
+      when 0
+          @edit_btn.enabled = false
+          @delete_btn.enabled = false
+      when 1
+          @edit_btn.enabled = true
+          @delete_btn.enabled = true
+      else
+          @edit_btn.enabled = false
+          @delete_btn.enabled = true
+      end
+  end
+
+  def create_filter_section(frame, label_text)
+    section_frame = FXVerticalFrame.new(frame, FRAME_SUNKEN | LAYOUT_FILL_X)
+    FXLabel.new(section_frame, label_text)
+    combo = FXComboBox.new(section_frame, 3, nil, 0, COMBOBOX_STATIC | LAYOUT_FILL_X)
+    combo.numVisible = 3
+    combo.appendItem("да")
+    combo.appendItem("нет")
+    combo.appendItem("не важно")
+    combo.setCurrentItem(2)
+
+    input_field = FXTextField.new(section_frame, 25, nil, 0, TEXTFIELD_NORMAL | LAYOUT_FILL_X)
+    input_field.enabled = false
+
+    combo.connect(SEL_COMMAND) do
+      if combo.currentItem == 0
+        input_field.enabled = true
+      else
+        input_field.enabled = false
+        input_field.text = "" 
+      end
+    end
+  end
+
+  private def set_column_widths
     @student_table.setColumnWidth(0, 50)  
     @student_table.setColumnWidth(1, 100) 
-    @student_table.setColumnWidth(2, 220) 
+    @student_table.setColumnWidth(2, 235) 
     @student_table.setColumnWidth(3, 130) 
   end
 
