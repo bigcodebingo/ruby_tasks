@@ -25,20 +25,16 @@ class StudentsList
         @students.find { |student| student.id == id }
     end
 
-    def get_k_n_student_short_list(k, n, existing_data_list = nil)
+    def get_k_n_student_short_list(k, n, data_list = nil)
         start_index = (k - 1) * n
         slice = @students[start_index, n] || []
         student_shorts = slice.map { |student| Student_short.init_from_student(student) }
-
-        if existing_data_list
-            existing_data_list.replace(student_shorts)
-            existing_data_list
-        else
-            DataListStudentShort.new(student_shorts)
-        end
+        data_list ||= DataListStudentShort.new(student_shorts)
+        data_list.data = student_shorts
+        data_list
     end
 
-    def sort_by_surname_fullname!
+    def sort_by_fullname!
         @students.sort_by! { |student| student.full_name }
     end
 
