@@ -122,6 +122,7 @@ class StudentApp < FXMainWindow
   end
 
   def on_update()
+    @current_page = 1
     @controller.update
   end
 
