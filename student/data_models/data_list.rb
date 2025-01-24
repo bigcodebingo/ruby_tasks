@@ -4,13 +4,14 @@ require_relative 'data_table.rb'
 class DataList
 
     include Deep_dup
-    
+
     def initialize(data)
         self.data = data
         @selected = []
+        @observers = []
     end
 
-    protected def data=(data)
+    def data=(data)
         unless data.is_a?(Array)
 			raise ArgumentError, "получен не массив"
 		end
@@ -26,7 +27,7 @@ class DataList
     def get_selected
         deep_dup(@selected)
     end
-
+ 
     def get_names
         raise NotImplementedError, "метод не реализован"
     end
