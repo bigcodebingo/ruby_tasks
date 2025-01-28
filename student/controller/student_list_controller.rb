@@ -7,7 +7,7 @@ class StudentListController
         @view = view
         @student_list = StudentsList.new("./students.json", StudentsListJSON.new)
         @data_list = DataListStudentShort.new([])
-		@data_list.add_observer(@view)
+	@data_list.add_observer(@view)
     end
 
     def sort_by_fullname!
@@ -40,7 +40,7 @@ class StudentListController
     end
 
     def update()
-		refresh_data
-	end
-
+	refresh_data
+    end
+	
 end
